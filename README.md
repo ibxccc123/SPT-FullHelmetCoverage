@@ -1,66 +1,33 @@
-# Welcome to the SPT Modding Project
+# Full Helmet Coverage
 
-This project is designed to streamline the initial setup process for building and creating mods in the SPT environment. Follow this guide to set up your environment efficiently.
+This simple mod edits helmets and face shields to cover all armor zones in the entire head (Face, Head top, Nape, Ears, Eyes, Jaws, Throat, Back neck).  Face shields' armor classes are raised by 2.
 
-## **Table of Contents**
-- [NodeJS Setup](#nodejs-setup)
-- [IDE Setup](#ide-setup)
-- [Workspace Configuration](#workspace-configuration)
-- [Environment Setup](#environment-setup)
-- [Essential Concepts](#essential-concepts)
-- [Coding Guidelines](#coding-guidelines)
-- [Distribution Guidelines](#distribution-guidelines)
+## **Overview**
 
-## **NodeJS Setup**
+Helmets receive additional durability that protects all head hitboxes.  Face shields are buffed with their armor class increased by 2 and their durability doubled. These changes apply to ALL helmets and face shields so expect PMC firefights with low-to-medium caliber rounds to last longer.  Enemy PMCs with a high-tier helmet and body armor will be major threats.  However, one taps through the helmet will happen provided the ammo has enough penetration/damage.
 
-Before you begin, ensure to install NodeJS version `v20.11.1`, which has been tested thoroughly with our mod templates and build scripts. Download it from the [official NodeJS website](https://nodejs.org/).
+Naturally there is a loss of realism since a player/bot can take a low-pen round to the naked face and not be damaged at all, provided their equipped helmet has a high enough armor class to stop the round.  
 
-After installation, it's advised to reboot your system.
+I made this mod since I wanted head armor, specifically helmets and face shields, to be more useful pieces of gear in the early-mid game.  I like helmet drip a lot but find their viability unsatisfactory as they provide debuffs to ergo and turn speed and when bots shoot at an exposed head, the lower hitboxes below the helmet like eyes/jaws/throat are much more likely to be hit.  This mod can be used as an alternative way of preventing sudden headshot deaths if a bot shoots at your face that's peeking out of cover, but other mods like **Headshot Damage Redirection** or **Dad Gamer Mode** are recommended if most of your bots are using ammo that pens through most helmets.
 
-## **IDE Setup**
 
-For this project, you can work with either [VSCodium](https://vscodium.com/) or [VSCode](https://code.visualstudio.com/). However, we strongly recommend using VSCode, as all development and testing have been carried out using this IDE, ensuring a smoother experience and compatibility with the project setups. Either way, we have a prepared a workspace file to assist you in setting up your environment.
+## **Install**
 
-## **Workspace Configuration**
+Extract directly into the SPT folder.  Mod folder can be located in user/mods/.
 
-With NodeJS and your chosen IDE ready, initiate the `mod.code-workspace` file using your IDE:
+## **Specifics**
 
-> File -> Open Workspace from File...
+The armorColliders, Durability, MaxDurability, and armorClass are updated for all helmets.  For example, the SSh-68 steel helmet has 90 durability from its original 54 (2 * Durability of helmet_top plate).  The plates and new helmet durability are shown below:
 
-Upon project loading, consider installing recommended plugins like the ESLint plugin.
+- Plate - Head top - 18/18
+- Plate - Nape - 18/18
+- Plate - Ears - 18/18
+- *NEW*: Helmet - Face, Head top, Nape, Ears, Eyes, Jaws, Throat, Back neck - 36/36
 
-## **Environment Setup**
+In practice, the additional 36 durability is used for all head armor zones and block bullets, while receiving durability damage when shot at.  Due to this implementation, this additional durability is not shown separately in-game like a plate but can be calculated through Current Durability - (Durability of All Plates + Additional Armor like Ear Covers).  
 
-An automated task is available to configure your environment for Typescript utilization:
+Generally speaking, if the shown durability of the helmet is ~50% to ~75%, then the modded armor zones added onto the helmet are likely compromised and only the "default" plates in the helmet will be functional.  The helmet can be repaired normally.
 
-> Terminal -> Run Task... -> Show All Tasks... -> npm: install
+## **Other Mods**
 
-Note: Preserve the `node_modules` folder as it contains necessary dependencies for Typescript and other functionalities.
-
-## **Essential Concepts**
-
-Prioritize understanding Dependency Injection and Inversion of Control, the architectural principles SPT adopts. Comprehensive guidelines will be available on the hub upon release.
-
-Some resources to get you started:
- - [A quick intro to Dependency Injection](https://www.freecodecamp.org/news/a-quick-intro-to-dependency-injection-what-it-is-and-when-to-use-it-7578c84fa88f/)
- - [Understanding Inversion of Control (IoC) Principle](https://medium.com/@amitkma/understanding-inversion-of-control-ioc-principle-163b1dc97454)
-
-## **Coding Guidelines**
-
-Focus your mod development around the `mod.ts` file. In the `package.json` file, only alter these properties: `"name"`, `"version"`, `"sptVersion"`, `"loadBefore"`, `"loadAfter"`, `"incompatibilities"`, `"isBundleMod"`, `"author"`, and `"license"`.
-
-New to Typescript? Find comprehensive documentation on the [official website](https://www.typescriptlang.org/docs/).
-
-## **Distribution Guidelines**
-
-Automated tasks are set up to bundle all necessary files for your mod to function in SPT:
-
-> Terminal -> Run Task... -> Show All Tasks... -> npm: build
-
-The ZIP output, located in the `dist` directory, contains all required files. Ensure all files are included and modify the `.buildignore` file as needed. This ZIP file is your uploadable asset for the hub.
-
-## **Conclusion**
-
-With this setup, you're ready to begin modding with SPT. If you run into any trouble be sure to check out the [modding documentation on the hub](https://hub.sp-tarkov.com/doc/lexicon/66-modding/). If you really get stuck feel free to join us in the [#mods-development](https://discord.com/channels/875684761291599922/875803116409323562) official Discord channel.
-
-Build something awesome!
+This mod is compatible with any other mods that add helmets or face shields with "GlassVisor" MaterialType to the game.
