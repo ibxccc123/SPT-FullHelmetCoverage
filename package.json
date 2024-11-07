@@ -1,6 +1,6 @@
 {
     "name": "FullHelmetCoverage",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "sptVersion": "3.9.8",
     "loadBefore": [],
     "loadAfter": [],

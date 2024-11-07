@@ -63,7 +63,7 @@ class Mod implements IPostDBLoadMod
                         const plateId = slot._props.filters[0].Plate;
                         const plate = builtInInserts.find(ins => ins._id == plateId);
                         //Stores the helmet's armor class and durability in armorClass and plateDurability
-                        if (armorClass == null || plateDurability == null) 
+                        if ((armorClass == null || plateDurability == null) && plate != undefined) 
                         {
                             armorClass = plate._props.armorClass;
                             plateDurability = plate._props.MaxDurability;
@@ -77,17 +77,23 @@ class Mod implements IPostDBLoadMod
                 }
 
                 // Modifies the armor class and durability of the helmet
-                helmet._props.armorClass = armorClass;
-                helmet._props.Durability = (plateDurability*numOfPlates) - numOfPlates;
-                helmet._props.MaxDurability = (plateDurability*numOfPlates) - numOfPlates;
+                if (armorClass != undefined && plateDurability != undefined) 
+                {
+                    helmet._props.armorClass = armorClass;
+                    helmet._props.Durability = (plateDurability*numOfPlates) - numOfPlates;
+                    helmet._props.MaxDurability = (plateDurability*numOfPlates) - numOfPlates;
+                }
                 
             }
 
             //Set the plate inserts in the helmet to 1 durability
             for (const plate of helmetPlates) 
             {
-                plate._props.Durability = 1;
-                plate._props.MaxDurability = 1;
+                if (plate._props.Durability != undefined && plate._props.MaxDurability != undefined) 
+                {
+                    plate._props.Durability = 1;
+                    plate._props.MaxDurability = 1;    
+                }
             }
 
         }
