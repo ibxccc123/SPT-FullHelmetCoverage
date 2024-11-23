@@ -6,11 +6,20 @@ import { DatabaseServer } from "@spt/servers/DatabaseServer";
 import { IDatabaseTables } from "@spt/models/spt/server/IDatabaseTables";
 import { ItemHelper } from "@spt/helpers/ItemHelper";
 import { BaseClasses } from "@spt/models/enums/BaseClasses";
+import { IPreSptLoadMod } from "@spt/models/external/IPreSptLoadMod";
+import { BotGeneratorHelperExtension } from "./BotGeneratorHelperExtension";
 
-class Mod implements IPostDBLoadMod
+class Mod implements IPostDBLoadMod, IPreSptLoadMod
 {
+
+    preSptLoad(container: DependencyContainer): void {
+        container.register<BotGeneratorHelperExtension>("BotGeneratorHelperExtension", BotGeneratorHelperExtension);
+        container.register("BotGeneratorHelper", { useToken: "BotGeneratorHelperExtension" });
+    }
+
     public postDBLoad(container: DependencyContainer): void
     {
+
         const databaseServer = container.resolve<DatabaseServer>("DatabaseServer");
         const tables: IDatabaseTables = databaseServer.getTables();
         const logger = container.resolve<ILogger>("WinstonLogger");

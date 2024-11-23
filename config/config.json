@@ -1,4 +1,5 @@
 {
 	"ModifyHelmets": true,
-	"ModifyFaceShields": true
+	"ModifyFaceShields": true,
+	"ReduceBotHelmetDurability": true
 }
